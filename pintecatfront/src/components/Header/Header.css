@@ -1,0 +1,11 @@
+.header {
+    background-color: #e60023;
+    display: flex;
+    justify-content: flex-end;
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+}
+
+.headerButtonWrapper {
+    display: flex;
+}
