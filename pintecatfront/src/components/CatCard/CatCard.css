@@ -37,6 +37,13 @@
 
 @keyframes heart { 0%, 17.5% { font-size: 0; } }
 
-.noShowHeart {
+.greyHeartHover {
     display: none;
+}
+
+.card:hover .greyHeartHover {
+    display: block;
+    color: #eee;
+    font-size: 3vw;
+    opacity: .5;
 }

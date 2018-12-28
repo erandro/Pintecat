@@ -8,9 +8,9 @@ import CardsWrapper from "./components/CardsWrapper";
 import API from "./utils/API"
 import './App.css';
 
-// changes in the future:
+// possible changes in the future:
 // 1. move "getImages()", "getFacts()" and "Promise.all" to a different file.
-// 2. make sorting click to sort first word when clicked again
+// 2. make sorting click to sort first word when clicked again?
 // 3. change the array in the state to object :) (changes all logic)
 // 4. take the "CardsWrapper" oparation logic (showing cards) to a function out of the render 
 // 5. change "Show Fav Cats" button text when clicked
@@ -153,10 +153,10 @@ class App extends Component {
       <div>
         <Header handleShowAllClick={this.handleShowAllClick}>
           <HeaderButton onClick={this.handleSortClickButton}>
-            Sort!
+            Sort ⇓
           </HeaderButton>
           <HeaderButton onClick={() => this.handleFavClickButton()}>
-            Favocats
+            Favocats ♥
           </HeaderButton>
           <HeaderButton onClick={() => this.handleShowOneClickButton()}>
             There can be only one

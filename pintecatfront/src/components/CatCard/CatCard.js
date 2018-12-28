@@ -5,7 +5,7 @@ function toggleHeart(fav) {
     if (fav) {
         return "showHeart"
     } else {
-        return "noShowHeart"
+        return "greyHeartHover"
     }
 }
 
@@ -25,8 +25,12 @@ const CatCard = (props) => {
                     id={props.id}>
                     {props.fact}
                 </p>
-                <div className="heartContainer">
-                    <label className={toggleHeart(props.fav)}>❤</label>
+                <div className="heartContainer"
+                    id={props.id}>
+                    <label className={toggleHeart(props.fav)}
+                        id={props.id}>
+                        ❤
+                    </label>
                 </div>
             </div>
         </div>
