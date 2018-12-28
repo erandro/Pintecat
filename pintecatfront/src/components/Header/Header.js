@@ -1,5 +1,4 @@
 import React from "react";
-import HeaderButton from "../HeaderButton";
 import './Header.css';
 
 const Header = props => {
@@ -7,8 +6,7 @@ const Header = props => {
         <div>
             <nav className="header">
                 <div className="headerButtonWrapper">
-                    <HeaderButton></HeaderButton>
-                    <HeaderButton></HeaderButton>
+                    {props.children}
                 </div>
             </nav>
         </div>

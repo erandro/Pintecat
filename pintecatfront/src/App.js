@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
 import Header from "./components/Header";
+import HeaderButton from "./components/HeaderButton";
 import CatCard from "./components/CatCard";
 import CardWrapper from "./components/CardWrapper";
 import API from "./utils/API"
@@ -17,6 +18,7 @@ class App extends Component {
     this.state = {
       cards: []
     };
+    this.handleClick = this.handleClick.bind(this);
   }
 
   componentDidMount() {
@@ -51,22 +53,43 @@ class App extends Component {
     });
   }
 
+  handleClick(event) {
+    event.preventDefault();
+    var cards = this.state.cards;
+    cards.sort(function (a, b) {
+      var fact1 = a[1].match(/\b\w+\b/g).pop().charAt(0).toUpperCase();
+      var fact2 = b[1].match(/\b\w+\b/g).pop().charAt(0).toUpperCase();
+      if (fact1 < fact2) {
+        return -1;
+      }
+      if (fact1 > fact2) {
+        return 1;
+      }
+      return 0;
+    });
+    this.setState({ cards: cards });
+  }
+
   render() {
     return (
       <div>
-        <Header />
+        <Header>
+          <HeaderButton onClick={this.handleClick}>
+            Sort!
+          </HeaderButton>
+          <HeaderButton>
+            button 2
+          </HeaderButton>
+        </Header>
 
-        <div>
-          <CardWrapper>
-            {this.state.cards.map(element => {
-              return <CatCard
-                img={element[0]}
-                fact={element[1]}
-                fav={element[2]} />
-            })}
-          </CardWrapper>
-        </div>
-
+        <CardWrapper>
+          {this.state.cards.map(element => {
+            return <CatCard
+              img={element[0]}
+              fact={element[1]}
+              fav={element[2]} />
+          })}
+        </CardWrapper>
       </div>
     );
   }

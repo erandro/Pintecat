@@ -3,13 +3,11 @@ import "./HeaderButton.css";
 
 const HeaderButton = (props) => {
     return (
-        <div>
-            <div className="buttonTextWrapper">
-                <p className="buttonText">
-                    Button
-                </p>
-            </div>
-        </div>
+        <button className="buttonTextWrapper">
+            <p {...props} className="buttonText">
+                {props.children}
+            </p>
+        </button>
     )
 };
 
