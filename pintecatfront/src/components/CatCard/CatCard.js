@@ -1,6 +1,15 @@
 import React from "react";
 import "./CatCard.css";
 
+function toggleHeart(fav) {
+    if (fav) {
+        return "showHeart"
+    } else {
+        return "noShowHeart"
+    }
+}
+
+
 const CatCard = (props) => {
     return (
         <div>
@@ -16,6 +25,7 @@ const CatCard = (props) => {
                     id={props.id}>
                     {props.fact}
                 </p>
+                <label className={toggleHeart(props.fav)}>❤</label>
             </div>
         </div>
     )

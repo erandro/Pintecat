@@ -1,4 +1,5 @@
 .card {
+    position: relative;
     background-color: #eee;
     display: inline-block;
     margin: 0 1vw 2vw 1vw;
@@ -16,4 +17,15 @@
 
 .catFact {
     margin: 1vw 1vw 3vw 1vw;
+}
+
+.showHeart {
+    color: #e60023;
+    position: absolute;
+    top: 1vw;
+    right: 1.5vw;
+}
+
+.noShowHeart {
+    display: none;
 }

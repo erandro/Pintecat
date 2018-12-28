@@ -8,11 +8,11 @@ import CardsWrapper from "./components/CardsWrapper";
 import API from "./utils/API"
 import './App.css';
 
-// remarks:
+// changes in the future:
 // 1. move "getImages()", "getFacts()" and "Promise.all" to a different file.
 // 2. make sorting click to sort first word when clicked again
-// 3. change the array in the state to object :)
-// 4 take the "CardsWrapper" oparation logic (showing cards) out of the render 
+// 3. change the array in the state to object :) (changes all logic)
+// 4. take the "CardsWrapper" oparation logic (showing cards) to a function out of the render 
 // 5. change "Show Fav Cats" button text when clicked
 
 class App extends Component {
