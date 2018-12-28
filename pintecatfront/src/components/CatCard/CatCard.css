@@ -1,0 +1,19 @@
+.card {
+    background-color: #eee;
+    display: inline-block;
+    margin: 0 1vw 2vw 1vw;
+    width: 100%;
+    border-radius: 5px;
+}
+
+.catImg {
+    display: block;
+    width: 92%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1vw;
+}
+
+.catFact {
+    margin: 1vw 1vw 3vw 1vw;
+}
