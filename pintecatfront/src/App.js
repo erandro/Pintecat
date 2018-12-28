@@ -3,6 +3,7 @@ import _ from 'lodash';
 import Header from "./components/Header";
 import HeaderButton from "./components/HeaderButton";
 import CatCard from "./components/CatCard";
+import CardWrapper from "./components/CardWrapper";
 import CardsWrapper from "./components/CardsWrapper";
 import API from "./utils/API"
 import './App.css';
@@ -20,11 +21,15 @@ class App extends Component {
     super();
     this.state = {
       cards: [],
-      showOnlyFav: false
+      showOnlyFav: false,
+      showOnlyOne: false,
+      currentOneCard: 0
     };
     this.handleSortClickButton = this.handleSortClickButton.bind(this);
     this.handleFavClickButton = this.handleFavClickButton.bind(this);
     this.handleFavClickCard = this.handleFavClickCard.bind(this);
+    this.handlePreviousClick = this.handlePreviousClick.bind(this);
+    this.handleNextClick = this.handleNextClick.bind(this);
   }
 
   componentDidMount() {
@@ -101,7 +106,39 @@ class App extends Component {
     this.setState({ cards: cards });
   }
 
+  handleShowOneClickButton() {
+    this.setState({
+      showOnlyOne: !this.state.showOnlyOne
+    })
+  }
+
+  handlePreviousClick(event) {
+    event.preventDefault();
+    var currentOneCard = this.state.currentOneCard;
+    if (currentOneCard > 0) {
+      currentOneCard = currentOneCard - 1;
+      this.setState({ currentOneCard: currentOneCard });
+    } else {
+      currentOneCard = this.state.cards.length - 1;
+      this.setState({ currentOneCard: currentOneCard });
+    }
+  }
+
+  handleNextClick(event) {
+    event.preventDefault();
+    var currentOneCard = this.state.currentOneCard;
+    if (currentOneCard < this.state.cards.length - 1) {
+      currentOneCard = currentOneCard + 1;
+      this.setState({ currentOneCard: currentOneCard });
+    } else {
+      currentOneCard = 0;
+      this.setState({ currentOneCard: currentOneCard });
+    }
+  }
+
   render() {
+    let oneCard = this.state.cards[this.state.currentOneCard];
+
     return (
       <div>
         <Header>
@@ -111,23 +148,37 @@ class App extends Component {
           <HeaderButton onClick={() => this.handleFavClickButton()}>
             Show Fav Cats
           </HeaderButton>
+          <HeaderButton onClick={() => this.handleShowOneClickButton()}>
+            There can be only one
+          </HeaderButton>
         </Header>
-
-        <CardsWrapper>
-          {this.state.cards.map(element => {
-            if (this.state.showOnlyFav && !element[2]) {
-              return null
-            }
-            else {
-              return <CatCard
-                handleFavClickCard={this.handleFavClickCard}
-                img={element[0]}
-                fact={element[1]}
-                fav={element[2]}
-                id={element[3]} />
-            }
-          })}
-        </CardsWrapper>
+        {
+          this.state.showOnlyOne ?
+            <CardWrapper
+              handlePreviousClick={this.handlePreviousClick}
+              handleNextClick={this.handleNextClick}>
+              <CatCard
+                img={oneCard[0]}
+                fact={oneCard[1]}
+                fav={oneCard[2]}
+                id={oneCard[3]} />
+            </CardWrapper>
+            : <CardsWrapper>
+              {this.state.cards.map(element => {
+                if (this.state.showOnlyFav && !element[2]) {
+                  return null
+                }
+                else {
+                  return <CatCard
+                    handleFavClickCard={this.handleFavClickCard}
+                    img={element[0]}
+                    fact={element[1]}
+                    fav={element[2]}
+                    id={element[3]} />
+                }
+              })}
+            </CardsWrapper>
+        }
       </div>
     );
   }

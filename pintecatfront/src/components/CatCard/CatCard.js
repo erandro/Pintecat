@@ -4,7 +4,10 @@ import "./CatCard.css";
 const CatCard = (props) => {
     return (
         <div>
-            <div className="card" data-fav={props.fav} id={props.id} onClick={props.handleFavClickCard}>
+            <div className="card"
+                data-fav={props.fav}
+                id={props.id}
+                onClick={props.handleFavClickCard}>
                 <img className="catImg"
                     id={props.id}
                     src={props.img}
