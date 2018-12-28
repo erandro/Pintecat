@@ -1,8 +1,14 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
 import Header from "./components/Header";
+import CatCard from "./components/CatCard";
+import CardWrapper from "./components/CardWrapper";
 import API from "./utils/API"
 import './App.css';
+
+// remarks:
+// 1. move "getImages()", "getFacts()" and "Promise.all" to a different file.
+// 2.
 
 class App extends Component {
 
@@ -51,7 +57,14 @@ class App extends Component {
         <Header />
 
         <div>
-          {this.state.cards}
+          <CardWrapper>
+            {this.state.cards.map(element => {
+              return <CatCard
+                img={element[0]}
+                fact={element[1]}
+                fav={element[2]} />
+            })}
+          </CardWrapper>
         </div>
 
       </div>
