@@ -25,6 +25,7 @@ class App extends Component {
       showOnlyOne: false,
       currentOneCard: 0
     };
+    this.handleShowAllClick = this.handleShowAllClick.bind(this);
     this.handleSortClickButton = this.handleSortClickButton.bind(this);
     this.handleFavClickButton = this.handleFavClickButton.bind(this);
     this.handleFavClickCard = this.handleFavClickCard.bind(this);
@@ -64,6 +65,14 @@ class App extends Component {
     });
   }
 
+  handleShowAllClick(event) {
+    event.preventDefault();
+    this.setState({
+      showOnlyFav: false,
+      showOnlyOne: false
+    })
+  }
+
   handleSortClickButton(event) {
     event.preventDefault();
     var cards = this.state.cards;
@@ -83,7 +92,8 @@ class App extends Component {
 
   handleFavClickButton() {
     this.setState({
-      showOnlyFav: !this.state.showOnlyFav
+      showOnlyFav: true,
+      showOnlyOne: false
     })
   }
 
@@ -141,7 +151,7 @@ class App extends Component {
 
     return (
       <div>
-        <Header>
+        <Header handleShowAllClick={this.handleShowAllClick}>
           <HeaderButton onClick={this.handleSortClickButton}>
             Sort!
           </HeaderButton>

@@ -6,7 +6,8 @@ const Header = props => {
     return (
         <div>
             <nav className="header">
-                <div className="logoContainer">
+                <div className="logoContainer"
+                    onClick={props.handleShowAllClick}>
                     <img className="logo"
                         src={catLogo}
                         alt="cat logo" />
