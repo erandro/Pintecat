@@ -1,0 +1,23 @@
+{
+  "name": "pintecat",
+  "version": "1.0.0",
+  "description": "this is a readme file - edit later",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/erandro/Pintecat.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/erandro/Pintecat/issues"
+  },
+  "homepage": "https://github.com/erandro/Pintecat#readme",
+  "dependencies": {
+    "cors-anywhere": "^0.4.1"
+  }
+}
