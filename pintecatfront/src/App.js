@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import _ from 'lodash';
 import Header from "./components/Header";
 import HeaderButton from "./components/HeaderButton";
+import SortButton from "./components/SortButton";
 import CatCard from "./components/CatCard";
 import CardWrapper from "./components/CardWrapper";
 import CardsWrapper from "./components/CardsWrapper";
@@ -14,6 +15,7 @@ import './App.css';
 // 3. change the array in the state to object :) (changes all logic)
 // 4. take the "CardsWrapper" oparation logic (showing cards) to a function out of the render 
 // 5. change "Show Fav Cats" button text when clicked
+// 6. when using the "_.zip" I use an array of id (change logic)
 
 class App extends Component {
 
@@ -21,6 +23,7 @@ class App extends Component {
     super();
     this.state = {
       cards: [],
+      sorted: false,
       showOnlyFav: false,
       showOnlyOne: false,
       currentOneCard: 0
@@ -60,7 +63,6 @@ class App extends Component {
 
     Promise.all([getImages(), getFacts()]).then(([images, facts]) => {
       let cards = _.zip(images, facts, _.fill(Array(25), false), [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25]);
-      console.log("cards:", cards);
       this.setState({ cards: cards });
     });
   }
@@ -75,19 +77,44 @@ class App extends Component {
 
   handleSortClickButton(event) {
     event.preventDefault();
-    var cards = this.state.cards;
-    cards.sort(function (a, b) {
-      var fact1 = a[1].match(/\b\w+\b/g).pop().charAt(0).toUpperCase();
-      var fact2 = b[1].match(/\b\w+\b/g).pop().charAt(0).toUpperCase();
-      if (fact1 < fact2) {
-        return -1;
+    if ((!this.state.showOnlyOne) || !(!this.state.showOnlyFav)) {
+      var cards = this.state.cards;
+      if (this.state.sorted) {
+        // sort alphabetically by the first word in the cat fact
+        cards.sort(function (a, b) {
+          var fact1 = a[1].match(/\b\w+\b/g)[0].charAt(0).toUpperCase();
+          var fact2 = b[1].match(/\b\w+\b/g)[0].charAt(0).toUpperCase();
+          if (fact1 < fact2) {
+            return -1;
+          }
+          if (fact1 > fact2) {
+            return 1;
+          }
+          return 0;
+        });
+        this.setState({
+          cards: cards,
+          sorted: false
+        });
+      } else {
+        // sort alphabetically by the last word in the cat fact
+        cards.sort(function (a, b) {
+          var fact1 = a[1].match(/\b\w+\b/g).pop().charAt(0).toUpperCase();
+          var fact2 = b[1].match(/\b\w+\b/g).pop().charAt(0).toUpperCase();
+          if (fact1 < fact2) {
+            return -1;
+          }
+          if (fact1 > fact2) {
+            return 1;
+          }
+          return 0;
+        });
+        this.setState({
+          cards: cards,
+          sorted: true
+        });
       }
-      if (fact1 > fact2) {
-        return 1;
-      }
-      return 0;
-    });
-    this.setState({ cards: cards });
+    }
   }
 
   handleFavClickButton() {
@@ -151,14 +178,21 @@ class App extends Component {
 
     return (
       <div>
-        <Header handleShowAllClick={this.handleShowAllClick}>
-          <HeaderButton onClick={this.handleSortClickButton}>
+        <Header
+          handleShowAllClick={this.handleShowAllClick}>
+          <SortButton
+            showingonecard={this.state.showOnlyOne.toString()}
+            showingfavcards={this.state.showOnlyFav.toString()}
+            onClick={this.handleSortClickButton}
+          >
             Sort ⇓
-          </HeaderButton>
-          <HeaderButton onClick={() => this.handleFavClickButton()}>
+          </SortButton>
+          <HeaderButton
+            onClick={() => this.handleFavClickButton()}>
             Favocats ♥
           </HeaderButton>
-          <HeaderButton onClick={() => this.handleShowOneClickButton()}>
+          <HeaderButton
+            onClick={() => this.handleShowOneClickButton()}>
             There can be only one
           </HeaderButton>
         </Header>

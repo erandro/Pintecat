@@ -15,6 +15,7 @@ display: flex;
     width: 5vw;
     height: 5vw;
     margin: 1vw;
+    align-self: center;
 }
 
 .logoText {
@@ -22,6 +23,11 @@ display: flex;
     align-self: center;
     font-family: 'Pacifico', cursive;
     font-size: 3vw;
+    cursor: default;
+}
+
+.logoText:hover {
+    color: rgb(255, 242, 242);
 }
 
 .headerButtonWrapper {
