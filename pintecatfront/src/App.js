@@ -146,7 +146,7 @@ class App extends Component {
             Sort!
           </HeaderButton>
           <HeaderButton onClick={() => this.handleFavClickButton()}>
-            Show Fav Cats
+            Favocats
           </HeaderButton>
           <HeaderButton onClick={() => this.handleShowOneClickButton()}>
             There can be only one
