@@ -25,7 +25,9 @@ const CatCard = (props) => {
                     id={props.id}>
                     {props.fact}
                 </p>
-                <label className={toggleHeart(props.fav)}>❤</label>
+                <div className="heartContainer">
+                    <label className={toggleHeart(props.fav)}>❤</label>
+                </div>
             </div>
         </div>
     )

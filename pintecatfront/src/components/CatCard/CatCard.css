@@ -19,12 +19,22 @@
     margin: 1vw 1vw 3vw 1vw;
 }
 
-.showHeart {
-    color: #e60023;
+.heartContainer {
+    /* display: flex;
+    justify-content: center; */
     position: absolute;
     top: 1vw;
     right: 1.5vw;
+    margin: 0;
 }
+.showHeart {
+    color: #e60023;
+    font-size: 3vw;
+    will-change: font-size;
+    animation: heart 1s cubic-bezier(.17, .89, .32, 1.49);
+}
+
+@keyframes heart { 0%, 17.5% { font-size: 0; } }
 
 .noShowHeart {
     display: none;
