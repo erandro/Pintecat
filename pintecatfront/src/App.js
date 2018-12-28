@@ -16,6 +16,7 @@ import './App.css';
 // 4. take the "CardsWrapper" oparation logic (showing cards) to a function out of the render 
 // 5. change "Show Fav Cats" button text when clicked
 // 6. when using the "_.zip" I use an array of id (change logic)
+// 7. maybe changed the "CardsWrapper" css- the sorting is from up to down in every column (not left to right)
 
 class App extends Component {
 
@@ -202,6 +203,7 @@ class App extends Component {
               handlePreviousClick={this.handlePreviousClick}
               handleNextClick={this.handleNextClick}>
               <CatCard
+                handleFavClickCard={this.handleFavClickCard}
                 img={oneCard[0]}
                 fact={oneCard[1]}
                 fav={oneCard[2]}
