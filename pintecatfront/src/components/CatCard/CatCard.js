@@ -14,21 +14,21 @@ const CatCard = (props) => {
     return (
         <div>
             <div className="card"
-                data-fav={props.fav}
-                id={props.id}
+                data-fav={props.card[2]}
+                id={props.card[3]}
                 onClick={props.handleFavClickCard}>
                 <img className="catImg"
-                    id={props.id}
-                    src={props.img}
+                    id={props.card[3]}
+                    src={props.card[0]}
                     alt="this is a cat" />
                 <p className="catFact"
-                    id={props.id}>
-                    {props.fact}
+                    id={props.card[3]}>
+                    {props.card[1]}
                 </p>
                 <div className="heartContainer"
-                    id={props.id}>
-                    <label className={toggleHeart(props.fav)}
-                        id={props.id}>
+                    id={props.card[3]}>
+                    <label className={toggleHeart(props.card[2])}
+                        id={props.card[3]}>
                         ❤
                     </label>
                 </div>

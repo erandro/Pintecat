@@ -2,7 +2,7 @@ import React from "react";
 import "./SortButton.css";
 
 function showAndHideButton(onlyOne, onlyFav) {
-    if ((onlyOne === "true") || (onlyFav === "true")) {
+    if ((onlyOne === true) || (onlyFav === true)) {
         return "sortButton"
     } else {
         return "headerButton"

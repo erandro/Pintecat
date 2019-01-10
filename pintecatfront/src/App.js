@@ -6,23 +6,26 @@ import SortButton from "./components/SortButton";
 import CatCard from "./components/CatCard";
 import CardWrapper from "./components/CardWrapper";
 import CardsWrapper from "./components/CardsWrapper";
-import API from "./utils/API"
+import APICall from "./utils/APICall"
 import './App.css';
 
 // possible changes in the future:
-// 1. move "getImages()", "getFacts()" and "Promise.all" to a different file.
-// 2. make sorting click to sort first word when clicked again?
+// 1. DONE: move "getImages()", "getFacts()" and "Promise.all" to a different file.
+// 2. DONE: make sorting click to sort first word when clicked again?
 // 3. change the array in the state to object :) (changes all logic)
 // 4. take the "CardsWrapper" oparation logic (showing cards) to a function out of the render 
 // 5. change "Show Fav Cats" button text when clicked
 // 6. when using the "_.zip" I use an array of id (change logic)
 // 7. maybe changed the "CardsWrapper" css- the sorting is from up to down in every column (not left to right)
+// 8. change "<h1>Loading...</h1>" to a component
+// 9. can change all the function to arrow function and get rid of the "bind(this)"
 
 class App extends Component {
 
   constructor() {
     super();
     this.state = {
+      isLoading: true,
       cards: [],
       sorted: false,
       showOnlyFav: false,
@@ -38,34 +41,24 @@ class App extends Component {
   }
 
   componentDidMount() {
-    function getImages() {
-      return API.getPic()
-        .then(results => {
-          var parser = new DOMParser();
-          // returns a Document, but not a SVGDocument nor a HTMLDocument (can use "text/html")
-          var doc = parser.parseFromString(results.data, "application/xml");
-          // turn HTMLCollection (of all "url" tags) to an array- then map throgh it and get the image src
-          let images = Array.from(doc.getElementsByTagName("url")).map(urlElement => urlElement.textContent)
-          return Promise.resolve(images);
-        }, (error) => {
-          console.log('error:', error);
+    Promise.all([APICall.getImages(), APICall.getFacts()])
+      .then(([images, facts]) => {
+        let cards = _.zip(images, facts, _.fill(Array(25), false), [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25]);
+        // let cards = []
+        // for (let i = 1; i < 25; i++) {
+        //   let obj = {
+        //     id: [i],
+        //     img: images[i],
+        //     fact: facts[i],
+        //     fav: false
+        //   }
+        //   cards.push(obj)
+        // }
+        this.setState({
+          cards: cards,
+          isLoading: false
         })
-    };
-
-    function getFacts() {
-      return API.getText()
-        .then(results => {
-          let facts = results.data.data.map(element => element.fact);
-          return Promise.resolve(facts)
-        }, (error) => {
-          console.log('error:', error);
-        })
-    };
-
-    Promise.all([getImages(), getFacts()]).then(([images, facts]) => {
-      let cards = _.zip(images, facts, _.fill(Array(25), false), [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25]);
-      this.setState({ cards: cards });
-    });
+      }).catch((err) => console.log(err))
   }
 
   handleShowAllClick(event) {
@@ -145,32 +138,32 @@ class App extends Component {
   }
 
   handleShowOneClickButton() {
-    this.setState({
-      showOnlyOne: !this.state.showOnlyOne
+    this.setState(prevState => {
+      return { showOnlyOne: !prevState.showOnlyOne }
     })
   }
 
   handlePreviousClick(event) {
     event.preventDefault();
-    var currentOneCard = this.state.currentOneCard;
-    if (currentOneCard > 0) {
-      currentOneCard = currentOneCard - 1;
-      this.setState({ currentOneCard: currentOneCard });
+    if (this.state.currentOneCard > 0) {
+      this.setState(prevState => {
+        return { currentOneCard: prevState.currentOneCard - 1 }
+      });
     } else {
-      currentOneCard = this.state.cards.length - 1;
-      this.setState({ currentOneCard: currentOneCard });
+      this.setState(prevState => {
+        return { currentOneCard: prevState.cards.length - 1 }
+      });
     }
   }
 
   handleNextClick(event) {
     event.preventDefault();
-    var currentOneCard = this.state.currentOneCard;
-    if (currentOneCard < this.state.cards.length - 1) {
-      currentOneCard = currentOneCard + 1;
-      this.setState({ currentOneCard: currentOneCard });
+    if (this.state.currentOneCard < this.state.cards.length - 1) {
+      this.setState(prevState => {
+        return { currentOneCard: prevState.currentOneCard + 1 }
+      });
     } else {
-      currentOneCard = 0;
-      this.setState({ currentOneCard: currentOneCard });
+      this.setState({ currentOneCard: 0 });
     }
   }
 
@@ -182,8 +175,8 @@ class App extends Component {
         <Header
           handleShowAllClick={this.handleShowAllClick}>
           <SortButton
-            showingonecard={this.state.showOnlyOne.toString()}
-            showingfavcards={this.state.showOnlyFav.toString()}
+            showingonecard={this.state.showOnlyOne}
+            showingfavcards={this.state.showOnlyFav}
             onClick={this.handleSortClickButton}
           >
             Sort ⇓
@@ -198,32 +191,34 @@ class App extends Component {
           </HeaderButton>
         </Header>
         {
-          this.state.showOnlyOne ?
-            <CardWrapper
-              handlePreviousClick={this.handlePreviousClick}
-              handleNextClick={this.handleNextClick}>
-              <CatCard
-                handleFavClickCard={this.handleFavClickCard}
-                img={oneCard[0]}
-                fact={oneCard[1]}
-                fav={oneCard[2]}
-                id={oneCard[3]} />
-            </CardWrapper>
-            : <CardsWrapper>
-              {this.state.cards.map(element => {
-                if (this.state.showOnlyFav && !element[2]) {
-                  return null
-                }
-                else {
-                  return <CatCard
-                    handleFavClickCard={this.handleFavClickCard}
-                    img={element[0]}
-                    fact={element[1]}
-                    fav={element[2]}
-                    id={element[3]} />
-                }
-              })}
-            </CardsWrapper>
+          this.state.isLoading ?
+            <h1>Loading...</h1> :
+            this.state.showOnlyOne ?
+
+              <CardWrapper
+                handlePreviousClick={this.handlePreviousClick}
+                handleNextClick={this.handleNextClick}>
+                <CatCard
+                  handleFavClickCard={this.handleFavClickCard}
+                  card={oneCard}
+                  key={oneCard[3]} />
+              </CardWrapper>
+
+              :
+              <CardsWrapper>
+                {this.state.cards.map(element => {
+                  if (this.state.showOnlyFav && !element[2]) {
+                    return null
+                  }
+                  else {
+                    return <CatCard
+                      handleFavClickCard={this.handleFavClickCard}
+                      card={element}
+                      key={element[3]} />
+                  }
+                })}
+              </CardsWrapper>
+
         }
       </div>
     );
