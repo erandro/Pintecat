@@ -1,24 +1,34 @@
 import React from "react";
+import CatCard from "../CatCard";
 import "./CardWrapper.css";
 
-const CardWrapper = props => {
+class CardWrapper extends React.Component {
+    constructor(props) {
+        super()
+    }
+    render() {
+        return (
+            <div className="container">
+                <button className="previousMoveButton"
+                    onClick={this.props.handlePreviousClick}>
+                    <p className="moveButtonText">◄</p>
+                </button>
 
-    return (
-        <div className="container">
-            <button className="previousMoveButton"
-                onClick={props.handlePreviousClick}>
-                <p className="moveButtonText">◄</p>
-            </button>
-            <div className="displayOne">{props.children}</div>
-            <button className="nextMoveButton"
-                onClick={props.handleNextClick}>
-                <p className="moveButtonText">►</p>
-            </button>
-        </div>
-    )
+                <div className="displayOne">
+                    <CatCard
+                        handleFavClickCard={this.props.handleFavClickCard}
+                        card={this.props.oneCard}
+                        key={this.props.oneCard.id}
+                    />
+                </div>
 
-
+                <button className="nextMoveButton"
+                    onClick={this.props.handleNextClick}>
+                    <p className="moveButtonText">►</p>
+                </button>
+            </div>
+        )
+    }
 }
-
 
 export default CardWrapper;

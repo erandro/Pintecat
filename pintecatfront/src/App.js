@@ -13,12 +13,12 @@ import './App.css';
 // 1. DONE: move "getImages()", "getFacts()" and "Promise.all" to a different file.
 // 2. DONE: make sorting click to sort first word when clicked again?
 // 3. DONE: change the array in the state to object :) (changes all logic)
-// 4. take the "CardsWrapper" oparation logic (showing cards) to a function out of the render 
+// 4. EDIT-DONE: take the "CardsWrapper" oparation logic (showing cards) to a the component
 // 5. DENIED: change "Show Fav Cats" button text when clicked
 // 6. DONE: when using the "_.zip" I use an array of id (change logic)
 // 7. maybe changed the "CardsWrapper" css- the sorting is from up to down in every column (not left to right)
 // 8. change "<h1>Loading...</h1>" to a component
-// 9. can change all the function to arrow function and get rid of the "bind(this)"
+// 9. DENIED: can change all the function to arrow function and get rid of the "bind(this)"
 
 class App extends Component {
 
@@ -169,8 +169,6 @@ class App extends Component {
   }
 
   render() {
-    let oneCard = this.state.cards[this.state.currentOneCard];
-
     return (
       <div>
         <Header
@@ -197,31 +195,18 @@ class App extends Component {
           this.state.isLoading ?
             <h1>Loading...</h1> :
             this.state.showOnlyOne ?
-
               <CardWrapper
+                oneCard={this.state.cards[this.state.currentOneCard]}
+                handleFavClickCard={this.handleFavClickCard}
                 handlePreviousClick={this.handlePreviousClick}
-                handleNextClick={this.handleNextClick}>
-                <CatCard
-                  handleFavClickCard={this.handleFavClickCard}
-                  card={oneCard}
-                  key={oneCard.id} />
-              </CardWrapper>
-
+                handleNextClick={this.handleNextClick}
+              />
               :
-              <CardsWrapper>
-                {this.state.cards.map(element => {
-                  if (this.state.showOnlyFav && !element.fav) {
-                    return null
-                  }
-                  else {
-                    return <CatCard
-                      handleFavClickCard={this.handleFavClickCard}
-                      card={element}
-                      key={element.id} />
-                  }
-                })}
-              </CardsWrapper>
-
+              <CardsWrapper
+                cards={this.state.cards}
+                showOnlyFav={this.state.showOnlyFav}
+                handleFavClickCard={this.handleFavClickCard}
+              />
         }
       </div>
     );
