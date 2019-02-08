@@ -15,7 +15,7 @@ import './App.css';
 // 5. DENIED: change "Show Fav Cats" button text when clicked
 // 6. DONE: when using the "_.zip" I use an array of id (change logic)
 // 7. maybe changed the "CardsWrapper" css- the sorting is from up to down in every column (not left to right)
-// 8. EDIT-DONE: change "<h1>Loading...</h1>" to a HOC component
+// 8. EDIT-DONE: change "<h1>Loading...</h1>" to a HOC
 // 9. DENIED: can change all the function to arrow function and get rid of the "bind(this)"
 
 class App extends Component {
