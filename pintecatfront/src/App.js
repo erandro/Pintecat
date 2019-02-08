@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-// import _ from 'lodash';
 import Header from "./components/Header";
 import HeaderButton from "./components/HeaderButton";
 import SortButton from "./components/SortButton";
-import CatCard from "./components/CatCard";
 import CardWrapper from "./components/CardWrapper";
 import CardsWrapper from "./components/CardsWrapper";
 import APICall from "./utils/APICall"
@@ -17,7 +15,7 @@ import './App.css';
 // 5. DENIED: change "Show Fav Cats" button text when clicked
 // 6. DONE: when using the "_.zip" I use an array of id (change logic)
 // 7. maybe changed the "CardsWrapper" css- the sorting is from up to down in every column (not left to right)
-// 8. change "<h1>Loading...</h1>" to a component
+// 8. EDIT-DONE: change "<h1>Loading...</h1>" to a HOC component
 // 9. DENIED: can change all the function to arrow function and get rid of the "bind(this)"
 
 class App extends Component {
@@ -25,7 +23,6 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      isLoading: true,
       cards: [],
       sorted: false,
       showOnlyFav: false,
@@ -43,7 +40,6 @@ class App extends Component {
   componentDidMount() {
     Promise.all([APICall.getImages(), APICall.getFacts()])
       .then(([images, facts]) => {
-        // let cards = _.zip(images, facts, _.fill(Array(25), false), [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25]);
         let cards = []
         for (let i = 0; i < 25; i++) {
           let obj = {
@@ -55,8 +51,7 @@ class App extends Component {
           cards.push(obj)
         }
         this.setState({
-          cards: cards,
-          isLoading: false
+          cards: cards
         })
       }).catch((err) => console.log(err))
   }
@@ -78,8 +73,6 @@ class App extends Component {
         cards.sort(function (a, b) {
           var fact1 = a.fact.match(/\b\w+\b/g)[0].charAt(0).toUpperCase();
           var fact2 = b.fact.match(/\b\w+\b/g)[0].charAt(0).toUpperCase();
-          //var fact1 = a[1].match(/\b\w+\b/g)[0].charAt(0).toUpperCase();
-          //var fact2 = b[1].match(/\b\w+\b/g)[0].charAt(0).toUpperCase();
           if (fact1 < fact2) {
             return -1;
           }
@@ -97,8 +90,6 @@ class App extends Component {
         cards.sort(function (a, b) {
           var fact1 = a.fact.match(/\b\w+\b/g).pop().charAt(0).toUpperCase();
           var fact2 = b.fact.match(/\b\w+\b/g).pop().charAt(0).toUpperCase();
-          // var fact1 = a[1].match(/\b\w+\b/g).pop().charAt(0).toUpperCase();
-          // var fact2 = b[1].match(/\b\w+\b/g).pop().charAt(0).toUpperCase();
           if (fact1 < fact2) {
             return -1;
           }
@@ -191,22 +182,19 @@ class App extends Component {
             There can be only one
           </HeaderButton>
         </Header>
-        {
-          this.state.isLoading ?
-            <h1>Loading...</h1> :
-            this.state.showOnlyOne ?
-              <CardWrapper
-                oneCard={this.state.cards[this.state.currentOneCard]}
-                handleFavClickCard={this.handleFavClickCard}
-                handlePreviousClick={this.handlePreviousClick}
-                handleNextClick={this.handleNextClick}
-              />
-              :
-              <CardsWrapper
-                cards={this.state.cards}
-                showOnlyFav={this.state.showOnlyFav}
-                handleFavClickCard={this.handleFavClickCard}
-              />
+        {this.state.showOnlyOne ?
+          <CardWrapper
+            oneCard={this.state.cards[this.state.currentOneCard]}
+            handleFavClickCard={this.handleFavClickCard}
+            handlePreviousClick={this.handlePreviousClick}
+            handleNextClick={this.handleNextClick}
+          />
+          :
+          <CardsWrapper
+            cards={this.state.cards}
+            showOnlyFav={this.state.showOnlyFav}
+            handleFavClickCard={this.handleFavClickCard}
+          />
         }
       </div>
     );

@@ -1,7 +1,7 @@
 import React from "react";
 import CatCard from "../CatCard";
 import "./CardsWrapper.css";
-
+import LoadingHOC from "../HOC/LoadingHOC.js";
 
 class CardsWrapper extends React.Component {
     constructor(props) {
@@ -28,4 +28,4 @@ class CardsWrapper extends React.Component {
 }
 
 
-export default CardsWrapper;
+export default LoadingHOC(CardsWrapper);
