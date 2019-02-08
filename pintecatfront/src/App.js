@@ -183,11 +183,11 @@ class App extends Component {
             Sort ⇓
           </SortButton>
           <HeaderButton
-            onClick={() => this.handleFavClickButton()}>
+            onClick={this.handleFavClickButton}>
             Favocats ♥
           </HeaderButton>
           <HeaderButton
-            onClick={() => this.handleShowOneClickButton()}>
+            onClick={this.handleShowOneClickButton.bind(this)}>
             There can be only one
           </HeaderButton>
         </Header>
