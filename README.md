@@ -4,7 +4,7 @@ a [Pinterest](https://www.pinterest.com/) style app that brings cat-lovers the t
 - Good old fashioned cat pictures/gifs; and
 - Cat facts
 
-This was a "Cats Project" challange from "Bento for Business".
+This repo was done as part of a challange from "Bento for Business" in July 2019.
 
 ## Installation
 
