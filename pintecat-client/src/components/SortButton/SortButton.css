@@ -1,0 +1,16 @@
+.sortButton {
+    display: flex;
+    background-color: #f01133;
+    border-radius: 25px;
+    padding: 1vw 2vw;
+    margin: 2vw;
+    border-width: 0px;
+}
+
+.sortButton:hover {
+    background-color: #be0f29;
+}
+
+.sortButton:hover .buttonText {
+    color: rgb(219, 187, 187);
+}

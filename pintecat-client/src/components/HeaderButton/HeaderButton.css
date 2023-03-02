@@ -1,0 +1,28 @@
+button:focus {
+    outline:0;
+}
+
+.headerButton {
+    display: flex;
+    background-color: #f01133;
+    border-radius: 25px;
+    padding: 1vw 2vw;
+    margin: 2vw;
+    border-width: 0px;
+}
+
+.headerButton:hover {
+    background-color: #fff;
+}
+
+.headerButton:hover .buttonText {
+    color: #000;
+}
+
+.buttonText {
+    color: #fff;
+    font-weight: bold;
+    margin: 0;
+    font-size: 1rem;
+    font-family: 'Lato', sans-serif;
+}

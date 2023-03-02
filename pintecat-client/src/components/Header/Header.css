@@ -1,0 +1,30 @@
+.header {
+  background-color: #f01133;
+  display: flex;
+  justify-content: space-between;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  margin-bottom: 2vw;
+}
+
+.logoContainer {
+  display: flex;
+  align-items: center;
+  border: none;
+  background-color: transparent;
+  color: #fff;
+  font-family: "Pacifico", cursive;
+  font-size: 3vw;
+  cursor: pointer;
+}
+
+.logo {
+  width: 5vw;
+  height: 5vw;
+  margin: 1vw;
+  align-self: center;
+}
+
+.headerButtonWrapper {
+  display: flex;
+}

@@ -1,0 +1,49 @@
+.card {
+    position: relative;
+    background-color: #eee;
+    display: inline-block;
+    margin: 0 1vw 2vw 1vw;
+    width: 100%;
+    border-radius: 5px;
+    font-family: 'Lato', sans-serif;
+}
+
+.catImg {
+    display: block;
+    width: 92%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1vw;
+}
+
+.catFact {
+    margin: 1vw 1vw 3vw 1vw;
+}
+
+.heartContainer {
+    /* display: flex;
+    justify-content: center; */
+    position: absolute;
+    top: 1vw;
+    right: 1.5vw;
+    margin: 0;
+}
+.showHeart {
+    color: #e60023;
+    font-size: 3vw;
+    will-change: font-size;
+    animation: heart 1s cubic-bezier(.17, .89, .32, 1.49);
+}
+
+@keyframes heart { 0%, 17.5% { font-size: 0; } }
+
+.greyHeartHover {
+    display: none;
+}
+
+.card:hover .greyHeartHover {
+    display: block;
+    color: #eee;
+    font-size: 3vw;
+    opacity: .5;
+}
