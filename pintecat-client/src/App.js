@@ -29,7 +29,11 @@ export default function App() {
 				}
 				setCards(newCards);
 			}).catch((err) => console.log(err))
-	}, [])
+	}, []);
+
+	// const toggleCardFav = () => {
+	// 	console.log("boom");
+	// }
 
 
 	return (
@@ -47,11 +51,13 @@ export default function App() {
 					Sort ⇓
 				</SortButton>
 				<HeaderButton
+				label="favocats"
 					// onClick={handleFavClickButton}
 					>
 					Favocats ♥
 				</HeaderButton>
 				<HeaderButton
+				label="single-display"
 					// onClick={handleShowOneClickButton}
 					>
 					There can be only one
@@ -60,7 +66,7 @@ export default function App() {
 			{cards.length !== 0 && <CardWrapper
 				cards={cards}
 				showOnlyFav={showOnlyFav}
-			//handleFavClickCard={handleFavClickCard}
+				// toggleCardFav={toggleCardFav}
 			/>}
 		</div>
 	);

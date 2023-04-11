@@ -11,28 +11,34 @@ export default function Card(props) {
     }
 
     return (
-        <div>
-            <div className="card"
-                data-fav={props.card.fav}
+        <article
+            className="card"
+            aria-label="card"
+            data-fav={props.card.fav}
+            id={props.card.id}
+            // onClick={props.toggleCardFav}
+        >
+            <img
+                className="catImg"
                 id={props.card.id}
-                // onClick={props.handleFavClickCard}
-                >
-                <img className="catImg"
-                    id={props.card.id}
-                    src={props.card.img}
-                    alt="this is a cat" />
-                <p className="catFact"
+                src={props.card.img}
+                alt="this is a cat"
+            />
+            <p
+                className="catFact"
+                id={props.card.id}>
+                {props.card.fact}
+            </p>
+            <div
+                className="heartContainer"
+                id={props.card.id}
+            >
+                <label
+                    className={toggleHeart(props.card.fav)}
                     id={props.card.id}>
-                    {props.card.fact}
-                </p>
-                <div className="heartContainer"
-                    id={props.card.id}>
-                    <label className={toggleHeart(props.card.fav)}
-                        id={props.card.id}>
-                        ❤
-                    </label>
-                </div>
+                    ❤
+                </label>
             </div>
-        </div>
+        </article>
     )
 }

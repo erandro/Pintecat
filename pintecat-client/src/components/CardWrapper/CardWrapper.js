@@ -6,8 +6,8 @@ export default function CardWrapper(props) {
     const singleCard = (
         <div className="container">
             <button className="previousMoveButton"
-                // onClick={props.handlePreviousClick}
-                >
+            // onClick={props.handlePreviousClick}
+            >
                 <p className="moveButtonText">◄</p>
             </button>
 
@@ -20,8 +20,8 @@ export default function CardWrapper(props) {
             </div>
 
             <button className="nextMoveButton"
-                //onClick={props.handleNextClick}
-                >
+            //onClick={props.handleNextClick}
+            >
                 <p className="moveButtonText">►</p>
             </button>
         </div>
@@ -29,23 +29,23 @@ export default function CardWrapper(props) {
 
     const multiCards = (
         <div className="masonry">
-                {props.cards.map(element => {
-                    if (props.showOnlyFav && !element.fav) {
-                        return null
-                    }
-                    else {
-                        return <Card
-                            //handleFavClickCard={props.handleFavClickCard}
-                            card={element}
-                            key={element.id}
-                        />
-                    }
-                })}
-            </div>
+            {props.cards.map(element => {
+                if (props.showOnlyFav && !element.fav) {
+                    return null
+                }
+                else {
+                    return <Card
+                        // toggleCardFav={props.toggleCardFav}
+                        card={element}
+                        key={element.id}
+                    />
+                }
+            })}
+        </div>
     )
-    
+
     const handleWrapperRender = (length) => {
-        if(length === 0) return  (<>NO DATA</>);
+        if (length === 0) return (<>NO DATA</>);
         return length < 2 ? singleCard : multiCards;
     }
 

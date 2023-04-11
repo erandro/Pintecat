@@ -29,7 +29,7 @@
     margin: 0;
 }
 .showHeart {
-    color: #e60023;
+    color: hsl(351, 100%, 45%);
     font-size: 3vw;
     will-change: font-size;
     animation: heart 1s cubic-bezier(.17, .89, .32, 1.49);
@@ -43,7 +43,7 @@
 
 .card:hover .greyHeartHover {
     display: block;
-    color: #eee;
+    color: hsl(0, 0%, 93%);
     font-size: 3vw;
     opacity: .5;
 }
