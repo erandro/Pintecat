@@ -1,3 +1,4 @@
+// import { useState } from 'react';
 import './Card.css';
 
 export default function Card(props) {
@@ -16,7 +17,7 @@ export default function Card(props) {
             aria-label="card"
             data-fav={props.card.fav}
             id={props.card.id}
-            // onClick={props.toggleCardFav}
+            onClick={props.toggleCardFav}
         >
             <img
                 className="catImg"

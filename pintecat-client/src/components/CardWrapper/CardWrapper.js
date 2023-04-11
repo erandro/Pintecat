@@ -35,7 +35,7 @@ export default function CardWrapper(props) {
                 }
                 else {
                     return <Card
-                        // toggleCardFav={props.toggleCardFav}
+                        toggleCardFav={props.toggleCardFav}
                         card={element}
                         key={element.id}
                     />

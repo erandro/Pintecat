@@ -31,9 +31,17 @@ export default function App() {
 			}).catch((err) => console.log(err))
 	}, []);
 
-	// const toggleCardFav = () => {
-	// 	console.log("boom");
-	// }
+	const toggleCardFav = (event) => {
+		const targetId = parseInt(event.target.id);
+		const newCards = cards.map((card) => {
+			return card.id !== targetId ? card : {
+				id: card.id,
+				img: card.img,
+				fact: card.fact,
+				fav: !card.fav,
+			} } );
+		setCards(newCards);
+	}
 
 
 	return (
@@ -66,7 +74,7 @@ export default function App() {
 			{cards.length !== 0 && <CardWrapper
 				cards={cards}
 				showOnlyFav={showOnlyFav}
-				// toggleCardFav={toggleCardFav}
+				toggleCardFav={toggleCardFav}
 			/>}
 		</div>
 	);
